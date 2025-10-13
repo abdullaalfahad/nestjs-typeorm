@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
@@ -21,11 +22,11 @@ import { User } from './users/entities/user.entity';
           autoLoadEntities: true,
           synchronize: true,
           ssl: { rejectUnauthorized: false },
-          entities: [User]
         };
       },
     }),
     UsersModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

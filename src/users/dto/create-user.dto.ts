@@ -1,23 +1,16 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsEmail, IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class CreateUserDto {
-    @IsString({ message: "First name must be a string" })
-    @IsNotEmpty({ message: "First name is required" })
-    firstName: string;
+  @IsString({ message: 'Username must be a string' })
+  @IsNotEmpty({ message: 'Username is required' })
+  @MaxLength(24, { message: 'Username must be at most 24 characters' })
+  username: string;
 
-    @IsString({ message: "Last name must be a string" })
-    @IsNotEmpty({ message: "Last name is required" })
-    lastName: string;
+  @IsEmail({}, { message: 'Email must be a valid email' })
+  @IsNotEmpty({ message: 'Email is required' })
+  email: string;
 
-    @IsEmail({}, { message: "Email must be a valid email" })
-    @IsNotEmpty({ message: "Email is required" })
-    email: string;
-
-    @IsString({ message: "Gender must be a string" })
-    @IsOptional({ message: "Gender is optional" })
-    gender?: string;
-
-    @IsString({ message: "Password must be a string" })
-    @IsNotEmpty({ message: "Password is required" })
-    password: string;
+  @IsString({ message: 'Password must be a string' })
+  @IsNotEmpty({ message: 'Password is required' })
+  password: string;
 }

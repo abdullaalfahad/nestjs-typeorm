@@ -1,44 +1,47 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
-
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  Unique,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({
-        type: "varchar",
-        nullable: false,
-        length: 100,
-    })
-    firstName: string
+  @Column({
+    type: 'varchar',
+    nullable: false,
+    length: 24,
+    unique: true,
+  })
+  username: string;
 
-    @Column({
-        type: "varchar",
-        nullable: false,
-        length: 100,
-    })
-    lastName: string
+  @Column({
+    type: 'varchar',
+    nullable: false,
+    length: 100,
+    unique: true,
+  })
+  email: string;
 
-    @Column({
-        type: "varchar",
-        nullable: false,
-        length: 100,
-        unique: true
-    })
-    email: string
+  @Column({
+    type: 'varchar',
+    nullable: false,
+    length: 100,
+  })
+  password: string;
 
-    @Column({
-        type: "varchar",
-        nullable: true,
-        length: 100,
-    })
-    gender: string
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @Column({
-        type: "varchar",
-        nullable: false,
-        length: 100,
-    })
-    password: string
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 }
