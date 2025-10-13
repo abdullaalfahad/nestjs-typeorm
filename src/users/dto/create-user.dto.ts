@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
+import { CreateProfileDto } from 'src/profile/dto/create-profile.dto';
 
 export class CreateUserDto {
   @IsString({ message: 'Username must be a string' })
@@ -13,4 +14,7 @@ export class CreateUserDto {
   @IsString({ message: 'Password must be a string' })
   @IsNotEmpty({ message: 'Password is required' })
   password: string;
+
+  @IsOptional()
+  profile?: CreateProfileDto | null | undefined;
 }

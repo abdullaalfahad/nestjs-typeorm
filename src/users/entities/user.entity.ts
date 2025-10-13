@@ -1,8 +1,11 @@
+import { Profile } from 'src/profile/entities/profile.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   Unique,
   UpdateDateColumn,
@@ -35,6 +38,10 @@ export class User {
     length: 100,
   })
   password: string;
+
+  @OneToOne(() => Profile, { cascade: true })
+  @JoinColumn()
+  profile?: Profile;
 
   @CreateDateColumn()
   createdAt: Date;
