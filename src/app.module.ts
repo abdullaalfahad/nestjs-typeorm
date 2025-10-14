@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { ProfileModule } from './profile/profile.module';
+import { TweetModule } from './tweet/tweet.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ProfileModule } from './profile/profile.module';
     }),
     UsersModule,
     ProfileModule,
+    TweetModule,
   ],
   controllers: [AppController],
   providers: [AppService],
