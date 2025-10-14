@@ -16,8 +16,8 @@ export class ProfileService {
     return 'This action adds a new profile';
   }
 
-  findAll() {
-    return this.profileRepository.find({
+  public async findAll() {
+    return await this.profileRepository.find({
       relations: { user: true },
     });
   }

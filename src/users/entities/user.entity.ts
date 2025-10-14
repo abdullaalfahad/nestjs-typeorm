@@ -39,8 +39,7 @@ export class User {
   })
   password: string;
 
-  @OneToOne(() => Profile, { cascade: true })
-  @JoinColumn()
+  @OneToOne(() => Profile,(profile) => profile.user ,{ cascade: true })
   profile?: Profile;
 
   @CreateDateColumn()
