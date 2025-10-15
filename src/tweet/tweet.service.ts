@@ -28,8 +28,11 @@ export class TweetService {
     return await this.tweetRepository.save(tweet);
   }
 
-  findAll() {
-    return `This action returns all tweet`;
+  public async findAll(userId: number) {
+    return await this.tweetRepository.find({
+      where: { user: { id: userId } },
+      relations: { user: true },
+    });
   }
 
   findOne(id: number) {
