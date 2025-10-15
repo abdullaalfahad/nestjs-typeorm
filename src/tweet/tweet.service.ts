@@ -63,7 +63,9 @@ export class TweetService {
     return await this.tweetRepository.save(tweet); 
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tweet`;
+  public async remove(id: number) {
+    await this.tweetRepository.delete({id});
+
+    return { deleted: true, id}
   }
 }

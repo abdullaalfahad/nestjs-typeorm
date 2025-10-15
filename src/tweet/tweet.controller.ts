@@ -28,7 +28,7 @@ export class TweetController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tweetService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.tweetService.remove(id);
   }
 }
