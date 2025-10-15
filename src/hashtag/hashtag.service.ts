@@ -34,6 +34,10 @@ export class HashtagService {
   }
 
   async findHashtagsByIds(ids: number[]) {
+    if(!ids?.length) {
+      return [];
+    }
+
     return await this.hashtagRepository.find({
       where: {id: In(ids)},
     })

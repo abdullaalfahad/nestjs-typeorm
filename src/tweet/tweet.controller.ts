@@ -23,8 +23,8 @@ export class TweetController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTweetDto: UpdateTweetDto) {
-    return this.tweetService.update(+id, updateTweetDto);
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateTweetDto: UpdateTweetDto) {
+    return this.tweetService.update(id, updateTweetDto);
   }
 
   @Delete(':id')

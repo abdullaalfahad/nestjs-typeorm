@@ -36,7 +36,7 @@ export class TweetService {
   public async findAll(userId: number) {
     return await this.tweetRepository.find({
       where: { user: { id: userId } },
-      relations: { user: true },
+      relations: { user: true, hashtags: true},
     });
   }
 
@@ -44,8 +44,23 @@ export class TweetService {
     return `This action returns a #${id} tweet`;
   }
 
-  update(id: number, updateTweetDto: UpdateTweetDto) {
-    return `This action updates a #${id} tweet`;
+  public async update(id: number, updateTweetDto: UpdateTweetDto) {
+    const tweet = await this.tweetRepository.findOne({
+      where: { id }, 
+      relations: { user: true, hashtags: true },
+    });
+
+    if(!tweet) {
+      throw new Error(`Tweet with id ${id} not found`);
+    }
+
+    const hashtags = await this.hashtagService.findHashtagsByIds(updateTweetDto.hashtags as number[])
+
+    tweet.text = updateTweetDto.text ?? tweet.text;
+    tweet.imageUrl = updateTweetDto.imageUrl ?? tweet.imageUrl;
+    tweet.hashtags = updateTweetDto.hashtags ? hashtags : tweet.hashtags;
+
+    return await this.tweetRepository.save(tweet); 
   }
 
   remove(id: number) {
