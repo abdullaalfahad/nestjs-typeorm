@@ -1,29 +1,36 @@
-import { User } from "src/users/entities/user.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from 'src/users/entities/user.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Tweet {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({
-        type: 'text',
-        nullable: false,
-    })
-    text: string;
+  @Column({
+    type: 'text',
+    nullable: false,
+  })
+  text: string;
 
-    @Column({
-        type: 'text',
-        nullable: true,
-    })
-    imageUrl?: string;
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  imageUrl?: string;
 
-    @Column()
-    createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @Column()
-    updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-    @ManyToOne(() => User, (user) => user.tweets)
-    user: User
+  @ManyToOne(() => User, (user) => user.tweets)
+  user: User;
 }

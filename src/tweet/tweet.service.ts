@@ -1,11 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTweetDto } from './dto/create-tweet.dto';
 import { UpdateTweetDto } from './dto/update-tweet.dto';
+import { UsersService } from 'src/users/users.service';
+import { Repository } from 'typeorm';
+import { Tweet } from './entities/tweet.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class TweetService {
-  create(createTweetDto: CreateTweetDto) {
-    return 'This action adds a new tweet';
+  constructor(
+    private readonly userService: UsersService,
+    @InjectRepository(Tweet)
+    private readonly tweetRepository: Repository<Tweet>,
+  ) {}
+
+  public async create(createTweetDto: CreateTweetDto) {
+    const user = await this.userService.findOne(createTweetDto.userId);
+    if (!user) {
+      throw new Error(`User with id ${createTweetDto.userId} not found`);
+    }
+
+    const tweet = this.tweetRepository.create({
+      ...createTweetDto,
+      user,
+    });
+
+    return await this.tweetRepository.save(tweet);
   }
 
   findAll() {
