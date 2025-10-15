@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateHashtagDto } from './dto/create-hashtag.dto';
 import { UpdateHashtagDto } from './dto/update-hashtag.dto';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Hashtag } from './entities/hashtag.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -31,5 +31,11 @@ export class HashtagService {
 
   remove(id: number) {
     return `This action removes a #${id} hashtag`;
+  }
+
+  async findHashtagsByIds(ids: number[]) {
+    return await this.hashtagRepository.find({
+      where: {id: In(ids)},
+    })
   }
 }
