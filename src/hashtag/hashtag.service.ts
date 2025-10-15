@@ -29,8 +29,9 @@ export class HashtagService {
     return `This action updates a #${id} hashtag`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} hashtag`;
+  public async remove(id: number) {
+    await this.hashtagRepository.delete({id});
+    return {deleted: true, id};
   }
 
   async findHashtagsByIds(ids: number[]) {
